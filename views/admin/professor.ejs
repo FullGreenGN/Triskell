@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/custom.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Marillac | Vie Scolaire</title>
+</head>
+
+<body class="dark">
+  <%- include('../components/sideMenu.ejs') %>
+
+    <section class="home">
+      <div class="text">
+        <h2>Professeurs</h2>
+        <p>Ici vous pouvez ajouter ou supprimer un professeur de la liste des absents</p>
+        <br>
+
+        <form action="/dashboard/professor/post" method="post">
+          <input class="form-input-text" type="text" name="name" placeholder="Nom du professeur" required>
+          <input class="form-input-text" type="text" name="matter" placeholder="Matiere" required>
+          <input class="form-input-text" type="date" name="from" placeholder="Absent du" required pattern="\d{4}-\d{2}-\d{2}">
+          <input class="form-input-text" type="date" name="to" placeholder="Au" required pattern="\d{4}-\d{2}-\d{2}">
+          <button type="submit" class="form-button">Ajouter</button>
+        </form>
+
+        <br><br>
+
+        <div class="table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>
+                  <h1>Professeur</h1>
+                </th>
+                <th>
+                  <h1>Matiere</h1>
+                </th>
+                <th>
+                  <h1>Absent du</h1>
+                </th>
+                <th>
+                  <h1>Au</h1>
+                </th>
+                <th>
+                  <h1>Supprimer</h1>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (profs) { for (let i=0; i < profs.length; i++) { %>
+                <tr>
+                  <td>
+                    <%= profs[i].name %>
+                  </td>
+                  <td>
+                    <%= profs[i].matter %>
+                  </td>
+                  <td>
+                    <%= profs[i].from %>
+                  </td>
+                  <td>
+                    <%= profs[i].to %>
+                  </td>
+                  <form action="/dashboard/professor/delete" method="POST">
+                    <input type="hidden" name="id" value="<%= profs[i].name %>">
+                    <td><button type="submit" class="table-button">Supprimer</button></td>
+                  </form>
+                </tr>
+                <% }} else { %>
+                  <td>
+                    <h1>Aucun professeur</h1>
+                  </td>
+                <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+    </section>
+
+
+    <script src="/js/front.js"></script>
+</body>
+
+</html>

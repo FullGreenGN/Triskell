@@ -1,0 +1,72 @@
+<nav class="sidebar close">
+  <header>
+    <div class="image-text">
+      <span class="image">
+        <img src="/img/favicon.png" alt="Logo">
+      </span>
+
+      <div class="text header-text">
+        <span class="name">Admin</span>
+        <span class="profession">Panel</span>
+      </div>
+    </div>
+
+    <i class='bx bx-chevron-right toggle'></i>
+  </header>
+  <div class="menu-bar">
+    <div class="menu">
+      <li class="search-box">
+        <a href="#">
+          <i class="bx bx-search icon"></i>
+          <input type="text" placeholder="Search...">
+        </a>
+      </li>
+      <ul class="menu-link">
+        <li class="nav-link <%= currentURL === '/dashboard' ? 'active' : '' %>">
+          <a href="/dashboard">
+            <i class="bx bx-home-alt icon"></i>
+            <span class="text nav-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-link <%= currentURL === '/dashboard/professors' ? 'active' : '' %>">
+          <a href="/dashboard/professors">
+            <i class="bx bx-briefcase icon"></i>
+            <span class="text nav-text">Professeurs</span>
+          </a>
+        </li>
+        <li class="nav-link <%= currentURL === '/dashboard/infos' ? 'active' : '' %>">
+          <a href="/dashboard/infos">
+            <i class="bx bx-bell icon"></i>
+            <span class="text nav-text">Informations</span>
+          </a>
+        </li>
+        <li class="nav-link <%= currentURL === '/dashboard/settings' ? 'active' : '' %>">
+          <a href="/dashboard/settings">
+            <i class="bx bx-cog icon"></i>
+            <span class="text nav-text">Paramètres</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bottom-content">
+      <li class="">
+        <a href="/logout">
+          <i class="bx bx-log-out icon"></i>
+          <span class="text nav-text">Logout</span>
+        </a>
+      </li>
+
+      <li class="mode">
+        <div class="moon-sun">
+          <i class="bx bx-moon icon moon"></i>
+          <i class="bx bx-sun icon sun"></i>
+        </div>
+        <span class="mode-text text">Dark Mode</span>
+
+        <div class="toggle-switch">
+          <spwn class="switch"></spwn>
+        </div>
+      </li>
+    </div>
+</nav>
