@@ -17,15 +17,15 @@
         
         <div class="infos">
             <div class="update">
-                <% if(update.need) { %>
+                <% if(update) { %>
                   <div class="update_available">
                     <h2>Une mise à jour est disponible</h2>
-                    <p>La version actuelle est la <%= version %></p>
+                    <p>La version actuelle est la <%= update.current %></p>
                     <p>La version disponible est la <%= update.version %></p>
                     <a href="/admin/update">Mettre à jour</a>
                   </div>
                 <% } else { %>
-
+                  <div class="update_available"><h2>Aucune mise à jour disponible</h2></div>
                 <% } %>
             </div>
         </div>

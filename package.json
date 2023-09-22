@@ -1,6 +1,6 @@
 {
   "name": "triskell",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "An Express Project for marillac.fr",
   "main": "index.js",
   "author": "FullGreen.GN",

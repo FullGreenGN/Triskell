@@ -63,22 +63,55 @@ router.post("/professor/delete", async function (req, res) {
 });
 
 router.get("/infos", async function (req, res) {
-    if (req.session.passport == undefined) {
-        res.redirect("/login");
-    } else {
-        res.render("admin/infos", {
-            currentURL: req.originalUrl,
-            title: "Infos",
-            user: req.user,
-            version: package.version,
-            update: {
-                version: "1.0.0",
-                date: "2021-01-01",
+    const package = require("../package.json");
+    const request = require("request");
 
-                need: true
+    request.get('https://raw.githubusercontent.com/FullGreenGN/Triskell/main/package.json', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var version = body;
+
+            packageData = JSON.parse(body);
+
+            var update = {
+                current: package.version,
+                need: version !== package.version,
+                version: packageData.version,
+                url: body.url
+            };
+
+            if (req.session.passport == undefined) {
+                res.redirect("/login");
+            } else {
+                res.render("admin/infos", {
+                    currentURL: req.originalUrl,
+                    title: "Infos",
+                    user: req.user,
+                    version: package.version,
+                    update: update,
+                });
             }
-        });
-    }
+        } else {
+            var update = {
+                current: package.version,
+                need: false,
+                version: package.version,
+                url: ""
+            };
+
+            if (req.session.passport == undefined) {
+                res.redirect("/login");
+            } else {
+                res.render("admin/infos", {
+                    currentURL: req.originalUrl,
+                    title: "Infos",
+                    user: req.user,
+                    version: package.version,
+                    update: update,
+                });
+            }
+        }
+    });
 });
+
 
 module.exports = router;
