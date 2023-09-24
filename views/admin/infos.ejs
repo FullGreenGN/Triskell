@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/custom.css">
+  <link rel="icon" href="/img/favicon.ico" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <title>Marillac | Vie Scolaire</title>
 </head>
@@ -17,12 +18,12 @@
         
         <div class="infos">
             <div class="update">
-                <% if(update) { %>
+                <% if(update.need) { %>
                   <div class="update_available">
                     <h2>Une mise à jour est disponible</h2>
                     <p>La version actuelle est la <%= update.current %></p>
                     <p>La version disponible est la <%= update.version %></p>
-                    <a href="/admin/update">Mettre à jour</a>
+                    <a href="/dashboard/update">Mettre à jour</a>
                   </div>
                 <% } else { %>
                   <div class="update_available"><h2>Aucune mise à jour disponible</h2></div>

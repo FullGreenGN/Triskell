@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marillac | Vie Scolaire</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#22252a">
+    <meta name="robots" content="all,follow">
+    <link rel='stylesheet' href="/css/index.css">
+</head>
+
+<body>
+    <section id="#">
+        <div class="circle"></div>
+        <header>
+            <a href="#"><img src="/img/favicon.png" class="logo"></a>
+            <div class="textBox">
+                <h2>Bienvenue a la <span>Vie Scolaire</span></h2>
+            </div>
+        </header>
+        <div class="content">
+            <div class="textBox">
+                <% if (profs.length >= 1) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h1>Professeur</h1>
+                                </th>
+                                <th>
+                                    <h1>Matiere</h1>
+                                </th>
+                                <th>
+                                    <h1>Absent du</h1>
+                                </th>
+                                <th>
+                                    <h1>Au</h1>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (profs) { for (let i=0; i < profs.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <%= profs[i].name %>
+                                </td>
+                                <td>
+                                    <%= profs[i].matter %>
+                                </td>
+                                <td>
+                                    <%= profs[i].from %>
+                                </td>
+                                <td>
+                                    <%= profs[i].to %>
+                                </td>
+                            </tr>
+                            <% } } %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <h2>Il n'y aucun pas de professeur absent</h2>
+                    <% } %>
+            </div>
+            <div class="imgBox">
+                <img src="/img/home.png" class="accueil">
+            </div>
+        </div>
+    </section>
+    <section id="weather">
+        <h2><%= weatherSectionTitle %></h2>
+		<% if(weatherData) {%>
+           <p><%= weatherData.city %><br><%= weatherData.weather %></p>
+        <% } %>   
+    </section>
+
+    <section id="ephemeride">
+        <h2><%= ephemerideSectionTitle %></h2>
+		<% if(ephemerideData) {%>
+            <p><%= ephemerideData.sentence %></p>
+        <% } %> 
+    </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/img/favicon.png" alt="Company Logo">
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="#missing">Absences</a></li>
+                        <li><a href="#">Meteo</a></li>
+                        <li><a href="#">Ephemeride</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Jean-Luc Oudart--Sintes. All Rights Reserved.
+            </div>
+        </footer>                
+</body>
+
+</html>

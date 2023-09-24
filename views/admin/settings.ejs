@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/custom.css">
+  <link rel="icon" href="/img/favicon.ico" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Marillac | Vie Scolaire</title>
+</head>
+<body class="dark">
+    <%- include('../components/sideMenu.ejs') %>
+
+    <section class="home">
+      <div class="text">
+        <h2><%= title %></h2>
+        <p>Vous êtes connecté en tant que <%= user.username %></p>
+        
+        <br><br>
+        <div class="form">
+            <form action="/dashboard/settings/post" method="POST">
+                <h2>Clé d'API MÉTEO</h2>
+                <input class="form-input-text" type="text" name="weatherApiKey" placeholder="Clé d'API" value="<%= weatherApiKey %>">
+                <button type="submit" class="form-button">Modifier</button>
+            </form>
+        </div>
+      </div>
+    </section>
+
+
+    <script src="/js/front.js"></script>
+</body>
+</html>

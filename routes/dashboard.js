@@ -2,7 +2,14 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
+const colors = require("colors");
+
+const fs = require('fs');
+const request = require('request');
+const decompress = require('decompress');
+
 const package = require("../package.json");
+const config = require("../config.json")
 
 router.get("/", async function (req, res) {
     if (req.session.passport == undefined) {
@@ -72,12 +79,22 @@ router.get("/infos", async function (req, res) {
 
             packageData = JSON.parse(body);
 
-            var update = {
-                current: package.version,
-                need: version !== package.version,
-                version: packageData.version,
-                url: body.url
-            };
+            if(package.version > packageData.version) {
+                var update = {
+                    current: package.version,
+                    need: false,
+                    version: packageData.version,
+                    url: ""
+                };
+            } else {
+                var update = {
+                    current: package.version,
+                    need: version !== package.version,
+                    version: packageData.version,
+                    url: body.url
+                };
+            }
+            
 
             if (req.session.passport == undefined) {
                 res.redirect("/login");
@@ -112,6 +129,67 @@ router.get("/infos", async function (req, res) {
         }
     });
 });
+
+router.get("/settings", async function (req, res) {
+    if (req.session.passport == undefined) {
+        res.redirect("/login");
+    } else {
+        res.render("admin/settings", {
+            currentURL: req.originalUrl,
+            title: "Settings",
+            user: req.user,
+
+            weatherApiKey: config.weatherApiKey,
+        });
+    }
+});
+
+router.post("/settings/post", async function (req, res) {
+    const weather = req.body.weather;
+
+    // add weather to json
+    var json = require("../config.json");
+    json.weatherApiKey = weather;
+
+    // write json
+    fs.writeFile("../config.json", JSON.stringify(json), function (err) {
+        if (err) return console.log(err);
+    });
+
+    res.redirect("/dashboard/settings");
+});
+
+router.get('/update', async function (req, res) {
+    if (req.session.passport == undefined) {
+        res.redirect("/login");
+    } else {
+        request.get('https://raw.githubusercontent.com/FullGreenGN/Triskell/main/package.json', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                packageData = JSON.parse(body);
+
+                request.get('https://github.com/FullGreenGN/Triskell/archive/refs/tags/v' + packageData.version + '.zip')
+                    .pipe(fs.createWriteStream('update.zip'))
+                    .on('finish', function () {
+                        decompress('update.zip', __dirname + '/../tmp')
+                            .then((files) => {
+                                console.log('Extraction complete ! Welcome to v' + packageData.version + ' !'.green);
+
+                                // Now, you can redirect the client after extraction is complete
+                                res.redirect('/dashboard/infos');
+                            })
+                            .catch((err) => {
+                                console.log(err);
+
+                                res.status(500).send('Error occurred during extraction');
+                            });
+                    });
+            }
+        });
+    }
+});
+
+
+
 
 
 module.exports = router;
