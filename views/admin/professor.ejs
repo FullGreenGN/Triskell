@@ -21,9 +21,8 @@
 
         <form action="/dashboard/professor/post" method="post">
           <input class="form-input-text" type="text" name="name" placeholder="Nom du professeur" required>
-          <input class="form-input-text" type="text" name="matter" placeholder="Matiere" required>
-          <input class="form-input-text" type="date" name="from" placeholder="Absent du" required pattern="\d{4}-\d{2}-\d{2}">
-          <input class="form-input-text" type="date" name="to" placeholder="Au" required pattern="\d{4}-\d{2}-\d{2}">
+          <input class="form-input-text" type="text" name="from" placeholder="Absent du JJ-MM-AAAA" required>
+          <input class="form-input-text" type="text" name="to" placeholder="Au JJ-MM-AAAA [INCLUS]" required>
           <button type="submit" class="form-button">Ajouter</button>
         </form>
 
@@ -35,9 +34,6 @@
               <tr>
                 <th>
                   <h1>Professeur</h1>
-                </th>
-                <th>
-                  <h1>Matiere</h1>
                 </th>
                 <th>
                   <h1>Absent du</h1>
@@ -55,9 +51,6 @@
                 <tr>
                   <td>
                     <%= profs[i].name %>
-                  </td>
-                  <td>
-                    <%= profs[i].matter %>
                   </td>
                   <td>
                     <%= profs[i].from %>

@@ -69,7 +69,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    --background-color: #533a88;
+    background-color: var(--primary-color);
 }
 
 header .logo {
@@ -97,7 +97,8 @@ header ul li a
 }
 
 header .textBox {
-    position: relative;
+    position: absolute;
+    left: 300px;
     max-width: 600px;
     color: #f1f1f1;
 }
@@ -106,7 +107,7 @@ header .textBox h2 {
     font-weight: 500;
     font-size: 2.5em;
     line-height: 1.4em;
-    color: #333;
+    color: #fff;
 }
 
 header .textBox h2 span {
@@ -125,7 +126,7 @@ header .textBox h2 span {
 
 .content .textBox {
     position: relative;
-    max-width: 600px;
+    min-width: 800px;
 }
 
 .content .textBox h2 {
@@ -175,7 +176,7 @@ header .textBox h2 span {
     width: 100%;
     height: 100%;
     background: #533a88;
-    clip-path: circle(450px at right);
+    clip-path: circle(650px at right 775px);
 }
 
 /* MISSING START REGION */
@@ -354,7 +355,7 @@ header .textBox h2 span {
     font-size: .9em;
 }
 
-tr:nth-child(3) {
+.imgBox tr:nth-child(3) {
     color: #999;
 }
 
@@ -425,76 +426,60 @@ footer {
     cursor: pointer;
 }
 
-.table th h1 {
-    font-weight: bold;
-    font-size: 1em;
-    text-align: left;
-    color: var(--body-color);
-    transition: var(--tran-03);
+/** ALERT START REGION **/
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
 }
 
-.table td {
+/** ALERT END REGION **/
 
-    font-weight: normal;
-    font-size: 1em;
-    -webkit-box-shadow: 0 2px 2px -2px var(--body-color);
-    -moz-box-shadow: 0 2px 2px -2px var(--body-color);
-    box-shadow: 0 2px 2px -2px var(--body-color);
-    transition: var(--tran-03);
-}
+/** TABLE START REGION **/
 
 .table {
-    text-align: left;
-    overflow: hidden;
     width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: table;
-    padding: 0 0 8em 0;
-    font-size: 1.5em;
+    border: 3px solid #ddd;
+    border-radius: 6px;
 }
 
-.table td,
-.table th {
-    padding-bottom: 0.5%;
-    padding-top: 0.5%;
-    padding-left: 0.5%;
-    transition: var(--tran-03);
+.table thead th {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 
-/* Background-color of the odd rows */
-.table tr:nth-child(odd) {
-    background-color: var(--text-color);
+.table tbody td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
 
-/* Background-color of the even rows */
-.table tr:nth-child(even) {
-    background-color: var(--table-color);
+.table thead th:last-child {
+    border-right: none;
+}
+.table tbody tr td:last-child {
+    border-bottom: none;
+    border-right: none;
 }
 
-.table th {
-    background-color: var(--primary-color);
-    transition: var(--tran-03);
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.table td:first-child {
-    color: #FB667A;
+.table tbody tr:hover {
+    background-color: #ddd;
 }
 
-.table td:hover {
-    background-color: var(--primary-color-light);
-    -webkit-box-shadow: 0 6px 6px -6px #0E1119;
-    -moz-box-shadow: 0 6px 6px -6px #0E1119;
-    box-shadow: 0 6px 6px -6px #0E1119;
+.table tbody tr td {
+    text-align: center;
 }
 
-.table td {
-    background-color: var(--sidebar-color);
-    -webkit-box-shadow: 0 6px 6px -6px #0E1119;
-    -moz-box-shadow: 0 6px 6px -6px #0E1119;
-    box-shadow: 0 6px 6px -6px #0E1119;
-    transition: var(--tran-03);
-}
+
 
 @media (max-width: 800px) {
 
@@ -513,29 +498,9 @@ footer {
 	cursor: pointer;
 	outline: inherit;
 }
+/** TABLE END REGION **/
 
-.footer-newsletter button:hover {
-    background-color: #ff3300;
-}
-
-/* Copyright Styles */
-.copyright {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-/* Media Query for Responsive Design */
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .footer-logo {
-        margin-bottom: 20px;
-    }
-}
+/** FOOTER START REGION **/
 
 
 /** FOOTER END REGION **/

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -15,99 +15,134 @@
 </head>
 
 <body>
-    <section id="#">
-        <div class="circle"></div>
-        <header>
-            <a href="#"><img src="/img/favicon.png" class="logo"></a>
-            <div class="textBox">
-                <h2>Bienvenue a la <span>Vie Scolaire</span></h2>
-            </div>
-        </header>
-        <div class="content">
-            <div class="textBox">
-                <% if (profs.length>= 1) { %>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <h1>Professeur</h1>
-                                </th>
-                                <th>
-                                    <h1>Matiere</h1>
-                                </th>
-                                <th>
-                                    <h1>Absent du</h1>
-                                </th>
-                                <th>
-                                    <h1>Au</h1>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (profs) { for (let i=0; i < profs.length; i++) { %>
-                                <tr>
-                                    <td>
-                                        <%= profs[i].name %>
-                                    </td>
-                                    <td>
-                                        <%= profs[i].matter %>
-                                    </td>
-                                    <td>
-                                        <%= profs[i].from %>
-                                    </td>
-                                    <td>
-                                        <%= profs[i].to %>
-                                    </td>
-                                </tr>
-                                <% } } %>
-                        </tbody>
-                    </table>
-                    <% } else { %>
-                        <h2>Il n'y aucun pas de professeur absent</h2>
-                        <% } %>
-            </div>
-            <div class="imgBox">
-                <div class="card">
 
-                    <h2><%= weatherData.location.name %></h2>
-                    <h3><%= weatherData.current.condition.text%><span>Vent <%=weatherData.current.wind_kph%>km/h <span class="dot">•</span> Precip <%= weatherData.current.precip_mm %></span></h3>
-                    <h1><%=weatherData.current.temp_c%>°</h1>
-                    <div class="sky">
-                        <img src="https:<%=weatherData.current.condition.icon%>" alt="Weather Icon">
-                    </div>
-                    <table>
-                        <tr>
-                            <% for (let i = 0; i < forecastData.forecast.forecastday.length; i++) { %>
-                                <td><%= forecastData.forecast.forecastday[i].date %> </td>
-                            <% } %>
-                        </tr>
-                        <tr>
-                            <% for (let i = 0; i < forecastData.forecast.forecastday.length; i++) { %>
-                                <td><%= forecastData.forecast.forecastday[i].day.maxtemp_c %>°</td>
-                            <% } %>
-                        </tr>
-                        <tr>
-                            <% for (let i = 0; i < forecastData.forecast.forecastday.length; i++) { %>
-                                <td><%= forecastData.forecast.forecastday[i].day.mintemp_c %>°</td>
-                            <% } %>
-                        </tr>
-                        <tr>
-                            <% for (let i = 0; i < forecastData.forecast.forecastday.length; i++) { %>
-                                <td>
-                                    <img src="https:<%= forecastData.forecast.forecastday[i].day.condition.icon %>" alt="Weather Icon">
-                                </td>
-                            <% } %>
-                        </tr>
-                    </table>
-                    
-                    <br><br>
-                    <p>Derniere mise a jour : <%= weatherData.current.last_updated %></p>
-                </div>
-            </div>
+    <script src="/js/front.js"></script>
+    <% if(weatherCritical && forecastData.alert) { %>
+        <div class="alert">
+
+            <marquee behavior="scroll" direction="left" scrollamount="10">
+                <h1>
+                    <%= forecastData.alert.msgtype %>
+                </h1>
+                <h1>
+                    <%= forecastData.alert.headline %>
+                </h1>
+                <h1>
+                    <%= forecastData.alert.desc %>
+                </h1>
+                <h1>
+                    <%= forecastData.alert.effective %>
+                </h1>
+                <h1>
+                    <%= forecastData.alert.expires %>
+                </h1>
+            </marquee>
+
         </div>
-    </section>
+        <% } %>
+            <section id="#">
+                <div class="circle"></div>
+                <header>
+                    <a href="#"><img src="/img/logo.png" class="logo"></a>
+                    <div class="textBox">
+                        <h2>Bienvenue a la <span>Vie Scolaire</span></h2>
+                    </div>
+                </header>
 
-    <!--<footer>
+                <div class="content">
+                    <div class="textBox">
+                        <% if (profs.length>= 1) { %>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <h1>Professeur</h1>
+                                        </th>
+                                        <th>
+                                            <h1>Absent du</h1>
+                                        </th>
+                                        <th>
+                                            <h1>Au</h1>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (profs) { for (let i=0; i < profs.length; i++) { %>
+                                        <tr>
+                                            <td>
+                                                <%= profs[i].name %>
+                                            </td>
+                                            <td class="date">
+                                                <%= profs[i].from %>
+                                            </td>
+                                            <td class="date">
+                                                <%= profs[i].to %>
+                                            </td>
+                                        </tr>
+                                        <% } } %>
+                                </tbody>
+                            </table>
+                            <% } else { %>
+                                <h2>Il n'y aucun pas de professeur absent</h2>
+                                <% } %>
+                    </div>
+                    <div class="imgBox">
+                        <div class="card">
+
+                            <h2>
+                                <%= weatherData.location.name %>
+                            </h2>
+                            <h3>
+                                <%= weatherData.current.condition.text%><br>Vent <%=weatherData.current.wind_kph%>km/h •
+                                        Precip <%= weatherData.current.precip_mm %>
+                            </h3>
+                            <h1>
+                                <%=weatherData.current.temp_c%>°
+                            </h1>
+                            <div class="sky">
+                                <img src="https:<%=weatherData.current.condition.icon%>" alt="Weather Icon">
+                            </div>
+                            <table>
+                                <tr>
+                                    <% for (let i=0; i < forecastData.forecast.forecastday.length; i++) { %>
+                                        <td>
+                                            <%= forecastData.forecast.forecastday[i].date %>
+                                        </td>
+                                        <% } %>
+                                </tr>
+                                <tr>
+                                    <% for (let i=0; i < forecastData.forecast.forecastday.length; i++) { %>
+                                        <td>
+                                            <%= forecastData.forecast.forecastday[i].day.maxtemp_c %>°
+                                        </td>
+                                        <% } %>
+                                </tr>
+                                <tr>
+                                    <% for (let i=0; i < forecastData.forecast.forecastday.length; i++) { %>
+                                        <td>
+                                            <%= forecastData.forecast.forecastday[i].day.mintemp_c %>°
+                                        </td>
+                                        <% } %>
+                                </tr>
+                                <tr>
+                                    <% for (let i=0; i < forecastData.forecast.forecastday.length; i++) { %>
+                                        <td>
+                                            <img src="https:<%= forecastData.forecast.forecastday[i].day.condition.icon %>"
+                                                alt="Weather Icon">
+                                        </td>
+                                        <% } %>
+                                </tr>
+                            </table>
+
+                            <br><br>
+                            <p>Derniere mise a jour : <%= weatherData.current.last_updated %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--<footer>
         <div class="footer-content">
             <div class="footer-logo">
                 <img src="/img/favicon.png" alt="Company Logo">

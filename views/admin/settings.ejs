@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/custom.css">
+  <link rel='stylesheet' href="/css/messenger.css">
   <link rel="icon" href="/img/favicon.ico" />
+  <link rel='stylesheet' href="/css/notiflix-2.5.0.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <title>Marillac | Vie Scolaire</title>
 </head>
@@ -21,6 +23,18 @@
             <form action="/dashboard/settings/post" method="POST">
                 <h2>Clé d'API MÉTEO</h2>
                 <input class="form-input-text" type="text" name="weatherApiKey" placeholder="Clé d'API" value="<%= weatherApiKey %>">
+
+                <br><br><br>
+                <h2>Changer le mot de passe</h2>
+                <input class="form-input-text" type="password" name="oldPassword" placeholder="Ancien mot de passe">
+                <input class="form-input-text" type="password" name="password" placeholder="Nouveau mot de passe">
+                <input class="form-input-text" type="password" name="passwordConfirm" placeholder="Confirmer le nouveau mot de passe">
+                <br><br><br>
+
+                <h2>Alerte météo critique</h2>
+                <input type="checkbox" name="weatherCritical" value="true" <% if (weatherCritical) { %> checked <% } %>>
+
+                <br><br><br>
                 <button type="submit" class="form-button">Modifier</button>
             </form>
         </div>
@@ -29,5 +43,21 @@
 
 
     <script src="/js/front.js"></script>
+
+    <script src="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-5/vendor/messenger-hubspot/build/js/messenger.min.js"></script>
+    <script src="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-5/vendor/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
+    <% if (message !="" ) { %>
+    <script>
+      Messenger.options = {
+        extraClasses: "messenger-fixed messenger-on-bottom  messenger-on-right",
+        theme: "flat"
+      }
+  
+      Messenger().post({
+        message: "<%= message %>",
+        type: "<%= messageType %>"
+      })
+    </script>
+    <% }%>
 </body>
 </html>

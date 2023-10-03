@@ -496,3 +496,15 @@ body.dark .switch::before {
 .update_available a:hover {
     color: var(--secondary-color);
 }
+
+input[type=checkbox] {
+    width: 25px;
+    height: 25px;
+    margin-top: 20px;
+    transition: var(--tran-03);
+    accent-color: var(--primary-color);
+}
+
+input[type=checkbox]:hover {
+    color: var(--secondary-color);
+}

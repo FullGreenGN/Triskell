@@ -5,13 +5,13 @@ const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: '../db.sqlite',
+    storage: './db.sqlite',
 
     define: {
         charset: "utf8mb4",
         collate: "utf8mb4_bin",
     },
-
+    logging: config.debug,
     pool: {
         max: 5,
         min: 0,

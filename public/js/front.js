@@ -24,3 +24,7 @@ const body = document.querySelector('body'),
             body.classList.add('dark');
         }
     });
+
+var year = new Date().getFullYear();
+document.getElementById('date').setAttribute("min", year + "-01-01");
+document.getElementById('date').setAttribute("max", year + "-12-31");

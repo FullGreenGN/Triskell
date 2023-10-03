@@ -43,16 +43,27 @@ router.get("/professors", async function (req, res) {
 
 router.post("/professor/post", async function (req, res) {
     const name = req.body.name;
-    const matter = req.body.matter;
     const from = req.body.from;
     const to = req.body.to;
+
+    // date format to DD/MM/YYYY
+    const date = new Date(from);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const fromFormat = day + "/" + month + "/" + year;
+
+    const dateTo = new Date(to);
+    const day2 = dateTo.getDate();
+    const month2 = dateTo.getMonth() + 1;
+    const year2 = dateTo.getFullYear();
+    const fromFormat2 = day2 + "/" + month2 + "/" + year2;
 
     // insert new missing
     await db.missings.create({
         name: name,
-        matter: matter,
-        from: from,
-        to: to,
+        from: fromFormat,
+        to: fromFormat2,
     });
 
     res.redirect("/dashboard/professors");
@@ -79,7 +90,7 @@ router.get("/infos", async function (req, res) {
 
             packageData = JSON.parse(body);
 
-            if(package.version > packageData.version) {
+            if (package.version > packageData.version) {
                 var update = {
                     current: package.version,
                     need: false,
@@ -94,7 +105,7 @@ router.get("/infos", async function (req, res) {
                     url: body.url
                 };
             }
-            
+
 
             if (req.session.passport == undefined) {
                 res.redirect("/login");
@@ -138,25 +149,48 @@ router.get("/settings", async function (req, res) {
             currentURL: req.originalUrl,
             title: "Settings",
             user: req.user,
+            message: "",
+            messageType: "success",
 
+            weatherCritical: config.weatherCritical,
             weatherApiKey: config.weatherApiKey,
         });
     }
 });
 
 router.post("/settings/post", async function (req, res) {
-    const weather = req.body.weather;
+    if (req.session.passport == undefined) {
+        res.redirect("/login");
+    } else {
 
-    // add weather to json
-    var json = require("../config.json");
-    json.weatherApiKey = weather;
 
-    // write json
-    fs.writeFile("../config.json", JSON.stringify(json), function (err) {
-        if (err) return console.log(err);
-    });
+        const weather = req.body.weatherApiKey;
+        const weatherCritical = req.body.weatherCritical;
 
-    res.redirect("/dashboard/settings");
+        if (weather !== undefined && weatherCritical !== undefined) {
+            fs.readFile("./config.json", "utf8", function (err, data) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var obj = JSON.parse(data); //now it an object
+                    obj.weatherApiKey = weather; //add some data
+                    obj.weatherCritical = weatherCritical; //add some data
+                    json = JSON.stringify(obj); //convert it back to json
+                    fs.writeFile("./config.json", json, "utf8", function (err) {
+                        if (err) {
+                            console.log(err);
+                            res.redirect("/dashboard/settings");
+                        } else {
+                            console.log("Weather API Key updated".green);
+                            res.redirect("/dashboard/settings");
+                        }
+                    }); // write it back
+                }
+            });
+        } else {
+            res.redirect("/dashboard/settings");
+        }
+    }
 });
 
 router.get('/update', async function (req, res) {

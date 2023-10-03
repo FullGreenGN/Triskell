@@ -28,17 +28,10 @@ router.get('/', async function(req, res) {
         const weatherData = weatherResponse.data;
         const forecastData = forecast.data;
 
-        console.log(weatherData.location.name + " " + weatherData.current.temp_c + "°C");
-        console.log(forecastData.forecast.forecastday[0].day.maxtemp_c + "°C");
-
-        for (let i = 0; i < forecastData.forecast.forecastday.length; i++) {
-            const day = forecastData.forecast.forecastday[i];
-            console.log(day.date + " " + day.day.maxtemp_c + "°C");
-        }
-
         res.render('index', {
             profs: await db.missings.findAll({ limit: 30 }),
 
+            weatherCritical: config.weatherCritical,
             weatherData: weatherData,
             forecastData: forecastData,
         });
